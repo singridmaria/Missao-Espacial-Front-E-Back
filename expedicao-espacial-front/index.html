@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expedição Espacial - Sistema de Gerenciamento</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/astronauta.png" type="image/x-icon">
+
+
+
+</head>
+
+<body>
+
+    <!--PÁGINA-->
+    <div class="container">
+
+        <!--CABEÇALHO-->
+        <header>
+            <img src="images/astronauta.png" alt="">
+            <h1>Sistema de Gerenciamento de Expedição Espacial</h1>
+        </header>
+
+        <!--CONTEÚDO MISSÃO-->
+        <main>
+
+            <!--CRIAR MISSÃO-->
+            <section id="create">
+                <h2>Criar Nova Missão</h2>
+                <br>
+                <form id="createMissionForm" action="#" method="post">
+                    <label for="nome_da_missao">Nome da Missão:</label>
+                    <input placeholder="Insira o nome da sua missão..." type="text" id="nome_da_missao" name="nome_da_missao" required>
+
+                    <label for="data da lancamento">Data de Lançamento:</label>
+                    <input type="date" id="data da lancamento" name="data da lancamento" required>
+
+                    <label for="destino">Destino:</label>
+                    <input placeholder="Informe um destino..." type="text" id="destino" name="destino" required>
+
+                    <label for="status_da_missao">Estado da missão:</label>
+                    <select id="status_da_missao" name="status_da_missao" required>
+                        <option value="" disabled selected>Selecione o estado da missão</option>
+                        <option value="ativo">Ativo</option>
+                        <option value="concluido">Concluído</option>
+                        <option value="abortado">Abortado</option>
+                        <option value="em_andamento">Em andamento</option>
+                        <option value="planejado">Planejado</option>
+                    </select>
+                    <BR>
+                    <BR>
+                    <label for="duracao">Duração da missão:</label>
+                    <select id="duracao" name="duracao" required>
+                        <option value="" disabled selected>Selecione a duração da missão</option>
+                        <option value="1 mês">1 mês</option>
+                        <option value="2 meses">2 meses</option>
+                        <option value="3 meses">3 meses</option>
+                        <option value="4 meses">4 meses</option>
+                        <option value="5 meses">5 meses</option>
+                        <option value="6 meses">6 meses</option>
+                        <option value="7 meses">7 meses</option>
+                        <option value="8 meses">8 meses</option>
+                        <option value="9 meses">9 meses</option>
+                        <option value="10 meses">10 meses</option>
+                        <option value="11 meses">11 meses</option>
+                        <option value="12 meses">1 ano</option>
+                        <option value="24 meses">2 anos</option>
+                        <option value="36 meses">3 anos</option>
+                        <!-- Adicione mais opções conforme necessário -->
+                    </select>
+                    <BR><BR>
+
+                    <label for="mission_cost">Custo da Missão:</label>
+                    <input placeholder="Informe o custo. Tipo de moeda: REAL" type="number" id="mission_cost" name="mission_cost" step="0.01" required>
+
+                    <label for="tripulacao">Tripulação:</label>
+                    <input placeholder="Informe quem irá embarcar nessa missão..." type="text" id="tripulacao" name="tripulacao" required>
+
+                    <label for="cargautil">Carga Útil:</label>
+                    <input placeholder="Informe a carga essencial para a missão..." type="text" id="cargautil" name="cargautil" required>
+
+
+
+                    <input type="submit" value="Criar Missão">
+                </form>
+                <div id="errorMessage" style="color: red; display: none;"></div>
+                <div id="successMessage" style="display:none; color: green;"></div>
+                <div id="errorMessage" style="display:none; color: red;"></div>
+            </section>
+
+            <!--CONSULTAR MISSÕES-->
+            <section id="read">
+
+                <h2>Visualizar Missões</h2>
+                <br>
+                <button id="botao2" onclick="limparDados()">Limpar Tabela</button>
+                <input id="botao2" type="submit" value="Pesquisar" onclick="visualizarTodasMissoes()">
+                <br>
+                <br>
+
+
+                <table id="missions_table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome da Missão</th>
+                            <th>Data de Lançamento</th>
+                            <th>Destino</th>
+                            <th>Estado da missão</th>
+                            <th>Duração da missão</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados das missões serão inseridos aqui via JavaScript -->
+                    </tbody>
+                </table>
+
+
+
+                <div class="modal" id="error_modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p id="error_message">Ocorreu um erro ao carregar os dados das missões. Por favor, tente
+                            novamente mais tarde.</p>
+                        <button id="okButton" onclick="fecharModal()">OK</button>
+                    </div>
+                </div>
+
+            </section>
+
+            <!--EDITAR MISSÃO-->
+            <section>
+                <h2>Atualizar Missão</h2>
+                <br>
+
+                <form id="missionFormAt">
+                    <label for="mission_id">ID da Missão:</label>
+                    <input type="text" id="mission_id" name="mission_id" required>
+
+                    <button type="button" onclick="buscarMissao()">Buscar</button>
+                    <br><br>
+                </form>
+                <form id="missionFormAt2">
+
+                <label for="nome_da_missao">Nome da Missão:</label>
+                <input type="text" id="nome_da_missaoed" name="nome_da_missao" required>
+
+                <label for="data_da_lancamento">Data de Lançamento:</label>
+                <input type="date" id="data_da_lancamentoed" name="data_da_lancamento" required>
+
+                <label for="destino">Destino:</label>
+                <input type="text" id="destinoed" name="destino" required>
+
+                <label for="status_da_missao">Estado da Missão:</label>
+
+                <select type="text" id="status_da_missaoed" name="status_da_missao" required>
+                    <option value="" disabled selected>Selecione o estado da missão</option>
+                    <option value="ativo">Ativo</option>
+                    <option value="concluido">Concluído</option>
+                    <option value="abortado">Abortado</option>
+                    <option value="em_andamento">Em andamento</option>
+                    <option value="planejado">Planejado</option>
+                </select>
+
+                <label for="duracao">Duração da Missão:</label>
+                <!-- <input type="text" id="duracaoed" name="duracao" required> -->
+
+                <select type="text" id="duracaoed" name="duracao" required>
+                    <option value="" disabled selected>Selecione a duração da missão</option>
+                    <option value="1 mês">1 mês</option>
+                    <option value="2 meses">2 meses</option>
+                    <option value="3 meses">3 meses</option>
+                    <option value="4 meses">4 meses</option>
+                    <option value="5 meses">5 meses</option>
+                    <option value="6 meses">6 meses</option>
+                    <option value="7 meses">7 meses</option>
+                    <option value="8 meses">8 meses</option>
+                    <option value="9 meses">9 meses</option>
+                    <option value="10 meses">10 meses</option>
+                    <option value="11 meses">11 meses</option>
+                    <option value="12 meses">1 ano</option>
+                    <option value="24 meses">2 anos</option>
+                    <option value="36 meses">3 anos</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+
+
+
+
+                <label for="mission_cost">Custo da Missão:</label>
+                <input type="number" id="mission_costed" name="mission_cost" required>
+
+                <label for="tripulacao">Tripulação:</label>
+                <input type="text" id="tripulacaoed" name="tripulacao" required>
+
+                <label for="cargautil">Carga Útil:</label>
+                <input type="text" id="cargautiled" name="cargautil" required>
+
+                <button type="submit">Salvar</button>
+                </form>
+
+                <div id="mensagem"></div>
+            </section>
+
+            <!--EXCLUIR MISSÕES-->
+            <section id="delete">
+                <h2>Deletar Missão</h2>
+                <br>
+                <form id="deleteMissionForm" onsubmit="deletarMissao(event)">
+                    <label for="delete_mission_id">ID da Missão:</label>
+                    <input type="text" id="delete_mission_id" name="delete_mission_id" required>
+                    <input type="submit" value="Deletar Missão">
+                </form>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
